@@ -1,0 +1,14 @@
+# Core agent dependencies
+google-genai>=1.0.0
+openai>=1.50.0
+anthropic>=0.39.0
+pyyaml>=6.0
+python-dotenv>=1.0.0
+tqdm>=4.66.0
+
+# RAG (Person B will use these)
+chromadb>=0.5.0
+sentence-transformers>=3.0.0
+
+# Testing
+pytest>=8.0.0

@@ -1,0 +1,21 @@
+agent:
+  max_iterations: 5
+  timeout_seconds: 120
+
+llm:
+  provider: "google"  # google | openai | anthropic
+  model: "gemini-2.5-flash" # gemini-3.5-flash
+  temperature: 0.7
+  max_tokens: 4096
+
+tools:
+  iverilog_path: "iverilog"
+  vvp_path: "vvp"
+  work_dir: "./workdir"
+
+evaluation:
+  dataset_path: "../verilog-eval/dataset_spec-to-rtl"
+  results_dir: "./results"
+
+skills:
+  directory: "./skills"

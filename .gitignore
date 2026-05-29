@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.env
+config/.env
+workdir/
+results/
+*.vvp
+*.vcd
+.DS_Store
+.venv/
+venv/
