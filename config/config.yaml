@@ -3,8 +3,8 @@ agent:
   timeout_seconds: 120
 
 llm:
-  provider: "google"  # google | openai | anthropic
-  model: "gemini-2.5-flash" # gemini-3.5-flash
+  provider: "google"
+  model: "gemini-2.5-flash"
   temperature: 0.7
   max_tokens: 4096
 
@@ -14,8 +14,9 @@ tools:
   work_dir: "./workdir"
 
 evaluation:
-  dataset_path: "../verilog-eval/dataset_spec-to-rtl"
+  dataset_path: "dataset/verilog-eval/dataset_spec-to-rtl"
   results_dir: "./results"
 
 skills:
   directory: "./skills"
+

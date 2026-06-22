@@ -3,6 +3,7 @@
 
 import os
 import logging
+import time
 from dataclasses import dataclass
 
 logger = logging.getLogger(__name__)
@@ -64,6 +65,32 @@ class LLMClient:
             logger.error(f"LLM generation failed: {e}")
             raise
 
+    def _generate_openai(self, system_prompt: str, user_prompt: str) -> LLMResponse:
+        for attempt in range(5):
+            try:
+                response = self._client.chat.completions.create(
+                    model=self.model,
+                    messages=[
+                         {"role": "system", "content": system_prompt},
+                         {"role": "user", "content": user_prompt},
+                    ],
+                    temperature=self.temperature,
+                    max_tokens=self.max_tokens,
+                )
+                text = response.choices[0].message.content or ""
+                usage = None
+                if response.usage:
+                    usage = {
+                        "prompt_tokens": response.usage.prompt_tokens,
+                        "completion_tokens": response.usage.completion_tokens,
+                        "total_tokens": response.usage.total_tokens,
+                    }
+                return LLMResponse(text=text, usage=usage)
+            except Exception as e:
+               wait = 60 * (attempt + 1)
+               logger.warning(f"Connection error (attempt {attempt+1}/5), retrying in {wait}s: {e}")
+               time.sleep(wait)
+        raise RuntimeError("Max retries exceeded")
     def _generate_google(self, system_prompt: str, user_prompt: str) -> LLMResponse:
         from google.genai import types
 

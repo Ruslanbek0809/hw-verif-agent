@@ -22,6 +22,12 @@ The testbench must:
 5. Include a timeout to prevent infinite simulation (e.g., #1000000 $finish)
 6. End with $finish after all checks complete
 
+CRITICAL VERILOG RULES (strictly follow):
+- Never use 'int' type — use 'integer' instead
+- Never declare variables inside initial blocks — declare all variables at module level
+- Use 'reg' for all testbench variables driven in initial/always blocks
+- Use only Verilog-2001 compatible syntax
+
 Output ONLY the testbench code inside ```verilog fences.
 Do not include the DUT code in the testbench — it will be compiled separately.
 {skills_section}"""

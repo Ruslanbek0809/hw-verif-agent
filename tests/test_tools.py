@@ -5,10 +5,16 @@
 
 import sys
 from pathlib import Path
+import shutil
+import pytest
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from tools.iverilog import iverilog_compile, vvp_simulate
+
+# Skip the whole module if Icarus Verilog is not available in PATH.
+if shutil.which("iverilog") is None or shutil.which("vvp") is None:
+  pytest.skip("Icarus Verilog (iverilog/vvp) not installed; skipping integration tests.", allow_module_level=True)
 
 
 # A trivially correct testbench should compile.
