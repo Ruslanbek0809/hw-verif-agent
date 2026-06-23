@@ -1,0 +1,8 @@
+.venv
+.env
+data
+activate
+__pycache__/
+*.py[cod]
+*$py.class
+driver_output.csv
