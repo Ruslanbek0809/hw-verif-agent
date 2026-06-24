@@ -50,9 +50,10 @@ def run_sample():
         print(f"Error reading dataset files: {e}")
         sys.exit(1)
 
-    # We must write the DUT code to data/dut.sv so that the simulation tool can compile it.
-    os.makedirs("data", exist_ok=True)
-    with open("data/dut.sv", "w") as f:
+    # We must write the DUT code to data/<test_id>/dut.sv so that the simulation tool can compile it.
+    test_data_dir = os.path.join("data", str(test_id))
+    os.makedirs(test_data_dir, exist_ok=True)
+    with open(os.path.join(test_data_dir, "dut.sv"), "w") as f:
         f.write(dut_code)
 
     initial_state = {
@@ -79,7 +80,7 @@ def run_sample():
     print("="*50)
     
     if final_state and "messages" in final_state:
-        dump_history_to_file(final_state["messages"], f"data/agent_messages_{test_id}.txt")
+        dump_history_to_file(final_state["messages"], f"data/{test_id}/agent_messages.txt")
         last_message = final_state["messages"][-1]
         print(f"Final Message:\n{last_message.content}")
     print("="*50)
